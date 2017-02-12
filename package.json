@@ -41,5 +41,19 @@
     "preact-compat": "^3.13.1",
     "preact-photon": "^1.3.0",
     "quill": "^1.2.0"
+  },
+  "babel": {
+    "presets": ["stage-1", "react"],
+    "plugins": [
+      ["transform-react-jsx", { "pragma": "h" }]
+    ]
+  },
+  "eslintConfig": {
+    "extends": ["standard", "standard-react"],
+    "rules": {
+      "comma-dangle": [2, "always-multiline"],
+      "block-spacing": [2, "always"],
+      "react/prefer-es6-class": [2, "always"]
+    }
   }
 }
