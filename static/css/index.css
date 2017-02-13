@@ -1,0 +1,35 @@
+@import "./photon-overrides.css";
+@import url('https://fonts.googleapis.com/css?family=Lato:700|Fira+Sans:400,400i,700,700i&amp;subset=cyrillic,greek,latin-ext');
+
+.hide {
+  display: none;
+}
+
+.ql-editor {
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.ql-editor p {
+  padding-top: 0.75em;
+}
+
+.ql-editor p:first-of-type {
+  padding-top: 0;
+}
+
+.ql-editor h1, .ql-editor h2, .ql-editor h3 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  padding-top: 0.5em;
+}
+
+.ql-editor h1 {
+  margin-bottom: 0.2em;
+  padding-bottom: 0.3em;
+}
+
+.ql-editor h1 {
+  padding-bottom: 0.1em;
+}
