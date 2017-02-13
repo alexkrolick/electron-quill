@@ -1,0 +1,56 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "standard-react"
+  ],
+  /**
+   * http://eslint.org/docs/rules 
+   * 0: "ignore", 1: "warn", 2: "error"
+   */
+  "rules": {
+    "comma-dangle": [1, "always-multiline"],      // trailing comma helps keep diffs clean
+    "handle-callback-err": [2, "^(err|error)$" ], // require error handling in callbacks
+    "react/forbid-prop-types": 1,                 // forbid general proptypes (any, object, array)
+    "react/jsx-closing-bracket-location": [
+      1, "tag-aligned"
+    ],                                            // align closing bracket with tags (good for diffs)
+    "react/jsx-equals-spacing": [1, "never"],     // enforce or disallow spaces around equal signs in JSX attributes
+    "react/jsx-handler-names": [
+      1, {"eventHandlerPrefix": "handle", 
+          "eventHandlerPropPrefix": "on"}
+    ],                                            // enforce event handler naming conventions
+    "react/jsx-key": 1,                           // detect missing key in iterated components
+    "react/jsx-max-props-per-line": [
+      1, { "maximum": 2 }
+    ],                                            // maximum props per line
+    "react/jsx-no-undef": 1,                      // disallow undeclared variables in JSX
+    "react/jsx-pascal-case": 1,                   // enforce PascalCase component names
+    "react/jsx-space-before-closing": 1,          // validate spacing before closing bracket in JSX
+    "react/jsx-uses-vars": 1,                     // prevent variables used in JSX being marked as unused
+    "react/jsx-wrap-multilines": 1,               // prevent missing parentheses around multilines JSX
+    "react/no-children-prop": 1,                  // prevent passing children as props instead of wrapping
+    "react/no-deprecated": 2,                     // prevent usage of deprecated methods
+    "react/no-did-mount-set-state": 2,            // prevent changing state right after mount
+    "react/no-did-update-set-state": 2,           // prevent changing state after another state change
+    "react/no-direct-mutation-state": 2,          // prevent mutating this.state outside of setState
+    "react/no-is-mounted": 2,                     // isMounted is an anti-pattern
+    "react/no-string-refs": 2,                    // prevent using string references instead of ref callbacks
+    "react/no-unknown-property": 1,               // prevent usage of unknown DOM property
+    "react/no-unused-prop-types": [
+      1, { "skipShapeProps": true }
+    ],                                            // warn about unused proptypes
+    "react/prefer-es6-class": [1, "always"],      // prefer es6 class to createClass
+    "react/prefer-stateless-function": [
+      1, { "ignorePureComponents": true }
+    ],                                            // replace stateless components with a pure function
+    "react/prop-types": 2,                        // prevent missing props validation
+    "react/require-render-return": 2,             // enforce return value in render function
+    "react/self-closing-comp": 1,                 // prevent extra closing tags for components without children
+    "react/sort-comp": 2,                         // methods order (default [static, lifecycle, custom, render])
+    "react/style-prop-object": 2,                 // enforce style prop being an object
+    "standard/object-curly-even-spacing": [
+      1, "always"
+    ]                                             // enforce space inside { braces }
+  }
+}
