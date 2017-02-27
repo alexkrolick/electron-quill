@@ -20,3 +20,5 @@ First, install [Yarn] for your system (you can replace `yarn` with `npm` below i
 - `yarn install` Install dependencies.
 - `yarn watch` Compile development version and watch for changes. Bundled files will appear in `dist/`.
 - `yarn start` Start the desktop app (while watcher is running in another terminal). Use Ctrl-R or Cmd-R to reload the app.
+
+![Screen capture](https://cloud.githubusercontent.com/assets/1571667/23353065/6053156e-fc7f-11e6-84c1-b7927857b2fd.gif)
