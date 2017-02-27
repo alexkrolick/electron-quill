@@ -34,15 +34,21 @@ class App extends Component {
           <div className='toolbar-actions'>
             <ButtonGroup>
               <Button
+                mini
                 icon='floppy'
                 onClick={this.handleClickSave}
               />
               <Button
+                mini
                 icon='folder'
                 onClick={this.handleClickOpen}
               />
             </ButtonGroup>
-            <Button icon='plus' class='pull-right' />
+            <Button
+              mini
+              icon='plus'
+              class='pull-right'
+            />
           </div>
         </Header>
 
