@@ -4,9 +4,9 @@
   "description": "Electron + Quill + Preact Desktop Text Editor",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "watch": "webpack --colors --watch",
-    "build": "webpack --production"
+    "start": "make start",
+    "watch": "make watch",
+    "build": "make build"
   },
   "repository": "https://github.com/alexkrolick/electron-quill",
   "keywords": [
