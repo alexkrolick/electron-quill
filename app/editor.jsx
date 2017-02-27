@@ -8,15 +8,17 @@ class Editor extends Component {
     super(props)
     this.state = {
       html: '',
-      quillInstance: null,
+      editor: null,
     }
   }
 
   componentDidMount () {
-    this.quillInstance = new Quill(this.props.container, {
+    this.editor = new Quill(this.props.container, {
       theme: this.props.theme,
       placeholder: this.props.placeholder,
     })
+    // Set global reference to editor so IO functions can interact with it
+    this.context.setEditor(this.editor)
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -32,6 +34,10 @@ Editor.propTypes = {
   placeholder: PropTypes.string,
   container: PropTypes.string.isRequired,
   theme: PropTypes.oneOf(['snow', 'bubble']),
+}
+
+Editor.contextTypes = {
+  setEditor: PropTypes.func,
 }
 
 Editor.defaultProps = {

@@ -3,7 +3,15 @@ import { h, render, Component } from 'preact'
 import { Header, Title, Footer, Button, ButtonGroup, NavGroup } from 'preact-photon'
 import Quill from './editor.jsx'
 import { remote } from 'electron'
+import fs from 'mz/fs'
 const { dialog } = remote
+
+// Wrap inconvenient APIs with promises
+function showSaveDialogAsync (options) {
+  return new Promise((resolve, reject) => {
+    dialog.showSaveDialog(options || {}, resolve)
+  })
+}
 
 const Sidebar = () => (
   <div className='pane pane-sm sidebar hide'>
@@ -16,14 +24,39 @@ const Sidebar = () => (
 
 class App extends Component {
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      editor: null,
+    }
+  }
+
+  getChildContext () {
+    return {
+      setEditor: (editor) => {
+        this.setState({ editor: editor })
+      },
+    }
+  }
+
   handleClickSave = () => {
-    dialog.showSaveDialog()
+    if (typeof this.state.editor !== 'object') return
+    if (!(this.state.editor.root instanceof Element)) return
+    const content = this.state.editor.root.innerHTML
+    showSaveDialogAsync()
+      .then((fileName) => this.saveFileAsync(fileName, content))
+      .catch((err) => console.error(err))
   }
 
   handleClickOpen = () => {
     dialog.showOpenDialog({
       properties: ['openFile'],
     })
+  }
+
+  saveFileAsync = (fileName, content) => {
+    if (typeof fileName !== 'string') throw Error('Filename must be a string')
+    return fs.writeFile(fileName, content)
   }
 
   render () {
