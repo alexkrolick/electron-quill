@@ -4,6 +4,11 @@
     "standard",
     "standard-react"
   ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
   /**
    * http://eslint.org/docs/rules 
    * 0: "ignore", 1: "warn", 2: "error"
