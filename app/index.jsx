@@ -9,7 +9,12 @@ const { dialog } = remote
 // Wrap inconvenient APIs with promises
 function showSaveDialogAsync (options) {
   return new Promise((resolve, reject) => {
-    dialog.showSaveDialog(options || {}, resolve)
+    try {
+      const files = dialog.showSaveDialog(options || {})
+      resolve(files)
+    } catch (err) {
+      reject(err)
+    }
   })
 }
 
