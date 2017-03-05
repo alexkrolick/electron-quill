@@ -69,6 +69,10 @@ class App extends Component {
     }
   }
 
+  componentDidMount () {
+    this.state.editor.focus()
+  }
+
   handleClickSave = () => {
     if (typeof this.state.editor !== 'object') return
     if (!(this.state.editor.root instanceof Element)) return
@@ -87,6 +91,10 @@ class App extends Component {
       })
       .then((content) => this.replaceEditorContents(content))
       .catch(console.error)
+  }
+
+  handleClickNew = () => {
+    this.replaceEditorContents('')
   }
 
   replaceEditorContents = (content) => {
@@ -123,6 +131,7 @@ class App extends Component {
               mini
               icon='plus'
               class='pull-right'
+              onClick={this.handleClickNew}
             />
           </div>
         </Header>
