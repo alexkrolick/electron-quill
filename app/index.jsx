@@ -18,6 +18,30 @@ function showSaveDialogAsync (options) {
   })
 }
 
+function showOpenDialogAsync (options) {
+  const htmlDefaults = {
+    properties: ['openFile'],
+    filters: [
+      { name: 'HTML Documents',
+        extensions: ['html', 'htm', 'shtml', 'xhtml'],
+      },
+    ],
+  }
+  return new Promise((resolve, reject) => {
+    try {
+      const files = dialog.showOpenDialog(options || htmlDefaults)
+      resolve(files)
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
+function saveFileAsync (fileName, content) {
+  if (typeof fileName !== 'string') throw Error('Filename must be a string')
+  return fs.writeFile(fileName, content)
+}
+
 const Sidebar = () => (
   <div className='pane pane-sm sidebar hide'>
     <NavGroup>
@@ -33,6 +57,7 @@ class App extends Component {
     super(props)
     this.state = {
       editor: null,
+      title: 'Electron Quill',
     }
   }
 
@@ -49,26 +74,38 @@ class App extends Component {
     if (!(this.state.editor.root instanceof Element)) return
     const content = this.state.editor.root.innerHTML
     showSaveDialogAsync()
-      .then((fileName) => this.saveFileAsync(fileName, content))
+      .then((filename) => saveFileAsync(filename, content))
+      .then((filename) => this.setState({ title: filename }))
       .catch((err) => console.error(err))
   }
 
   handleClickOpen = () => {
-    dialog.showOpenDialog({
-      properties: ['openFile'],
-    })
+    showOpenDialogAsync()
+      .then((filenames) => {
+        this.setState({ title: filenames[0] })
+        return fs.readFile(filenames[0], 'utf8')
+      })
+      .then((content) => this.replaceEditorContents(content))
+      .catch(console.error)
   }
 
-  saveFileAsync = (fileName, content) => {
-    if (typeof fileName !== 'string') throw Error('Filename must be a string')
-    return fs.writeFile(fileName, content)
+  replaceEditorContents = (content) => {
+    // TODO confirm contents have been saved before overriding
+    try {
+      this.state.editor.setText('\n')
+      this.state.editor.clipboard.dangerouslyPasteHTML(0, content)
+      this.state.editor.focus()
+      return
+    } catch (err) {
+      throw err // handle in promise
+    }
   }
 
   render () {
     return (
       <div className='window'>
         <Header>
-          <Title>React Editor</Title>
+          <Title>{this.state.title}</Title>
           <div className='toolbar-actions'>
             <ButtonGroup>
               <Button
@@ -95,7 +132,7 @@ class App extends Component {
             <Sidebar />
             <div className='pane'>
               <Quill
-                placeholder={"Let's go!"}
+                placeholder={''}
                 container='#editor'
                 theme={'bubble'}
               />
